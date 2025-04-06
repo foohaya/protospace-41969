@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root "prototypes#index"
   resources :prototypes
+  resources :users, only: [:edit,:update,:show,:destroy]  # 追加: ユーザー詳細ページへのルートを設定
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

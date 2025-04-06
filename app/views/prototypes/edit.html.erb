@@ -3,6 +3,9 @@
     <div class="form__wrapper">
       <h2 class="page-heading">プロトタイプ編集</h2>
       <%# 部分テンプレートでフォームを表示する %>
+      <%= form_for @prototype do |f| %>
+        <%= render 'form', f: f %>
+      <% end %>
     </div>
   </div>
 </div>
