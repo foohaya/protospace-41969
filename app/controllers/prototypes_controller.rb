@@ -15,7 +15,7 @@ class PrototypesController < ApplicationController
   def create
     @prototype = Prototype.new(prototype_params.merge(user_id: current_user.id))
     if @prototype.save
-      redirect_to prototype_path(@prototype), notice: "プロトタイプが作成されました"
+      redirect_to root_path, notice: "プロトタイプが作成されました"
     else
       render :new
     end
@@ -33,7 +33,6 @@ class PrototypesController < ApplicationController
 
       def update
         @prototype = Prototype.find(params[:id])
-        
         if @prototype.update(prototype_params)  # フォームから送信されたデータで更新
           redirect_to prototype_path(@prototype), notice: "プロトタイプが更新されました"  # 更新後、詳細ページへ遷移
         else
@@ -52,6 +51,7 @@ class PrototypesController < ApplicationController
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept,:image)
   end
+
   def set_prototype
     @prototype = Prototype.find(params[:id])
   end

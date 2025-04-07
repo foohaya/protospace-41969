@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root "prototypes#index"
   resources :prototypes do
-    resources :comments, only: [:create] 
+  resources :comments, only: [:create] 
   end
 
   resources :users, only: [:edit,:update,:show,:destroy]  # 追加: ユーザー詳細ページへのルートを設定
