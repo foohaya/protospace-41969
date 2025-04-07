@@ -1,4 +1,9 @@
 class PrototypesController < ApplicationController
+
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_prototype, only: [:show, :edit, :update, :destroy]
+  before_action :move_to_root, only: [:edit, :update, :destroy]
+
   def index
     @prototypes = Prototype.all
   end
@@ -18,6 +23,8 @@ class PrototypesController < ApplicationController
 
       def show
         @prototype = Prototype.find(params[:id])
+        @comment = @prototype.comments.build
+        @comments = @prototype.comments.includes(:user) 
       end
 
       def edit
@@ -44,5 +51,14 @@ class PrototypesController < ApplicationController
 
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept,:image)
+  end
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def move_to_root
+    unless current_user == @prototype.user
+      redirect_to root_path, alert: "アクセス権限がありません"
+    end
   end
 end
