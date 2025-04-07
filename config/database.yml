@@ -1,7 +1,7 @@
 default: &default
-  encoding: utf8
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  
+
 development:
   <<: *default
   adapter: mysql2
@@ -20,5 +20,11 @@ test:
 
 production:
   <<: *default
-adapter: postgresql
-url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 5
+  username: <%= ENV['PROD_DATABASE_USERNAME'] %>
+  password: <%= ENV['PROD_DATABASE_PASSWORD'] %>
+  host: <%= ENV['PROD_DATABASE_HOST'] %>
+  port: 5432
+  sslmode: require
